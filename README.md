@@ -1,4 +1,11 @@
 # Arduino_Sneakernet_Infiltration_detector
+<b>Hardware used:<br>
+-Breadboard<br>
+-Arduino Uno<br>
+-Ultrasonic Sensor<br>
+-Stepper Motor<br>
+-HC05 Bluetooth Module<br>
+</b>
 
 The arduino <b>Sneakernet Infiltration Detector</b> uses <b>Ultrasonic Sensor</b> to do an initial sweep of the area.<br>
 The purpose of the initial scan is to store the distance of each non-moving object.<br>
