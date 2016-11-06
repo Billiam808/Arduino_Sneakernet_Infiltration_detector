@@ -4,7 +4,18 @@ void setup()
 {
   // size(width, height) -> sets the drawing canzas
   size(800,1000);
-  
+  drawRadar();
+}
+
+// constantly draws whats inside the function
+// into the canvas
+void draw()
+{
+
+}
+
+void drawRadar()
+{  
   // Sets the background color of the canvas
   background(155);
   // sets the thickness of the lines
@@ -20,12 +31,15 @@ void setup()
   // start: start of the arc specified in radians
   // stop: end of the arc specified in radians
   // origin: (400,600)
+  // Radius: 350
+  // Diameter: 700
   arc(400,600,700,700,0,TWO_PI);
+  
+  
 }
 
-// constantly draws whats inside the function
-// into the canvas
-void draw()
+void drawLines()
 {
-
+ translate(400, 600); 
+ 
 }
