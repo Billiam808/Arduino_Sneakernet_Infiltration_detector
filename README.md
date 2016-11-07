@@ -21,3 +21,7 @@ By doing this, it would need 2 sensors to cover the full 360.
 To calculate the distance, you use how long it took to send the signal and get it back then multiply it by speed of sound in Air.<br>
 <b>Distance = (Time x Speed of Sound in Air)/2</b><br>
 <b>Speed of Sound in Air is = 343 meters per second</b>
+
+<iframe width="420" height="315"
+src="https://www.youtube.com/watch?v=-572DcZ72Jo">
+</iframe>
