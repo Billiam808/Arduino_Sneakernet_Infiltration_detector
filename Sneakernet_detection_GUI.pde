@@ -30,16 +30,22 @@ void drawRadar()
   // d: height of the arc's ellipse
   // start: start of the arc specified in radians
   // stop: end of the arc specified in radians
-  // origin: (400,600)
   // Radius: 350
   // Diameter: 700
   arc(400,600,700,700,0,TWO_PI);
-  
+  drawLines();
   
 }
 
 void drawLines()
 {
- translate(400, 600); 
+  // line(x1, y1, x2, y2)
+  // vertical
+  // point 1 :(400,250)
+  // point 2 :(400,950)
+  line(400, 250, 400, 950);
+ 
+ // horizontal
+ line(50,600,750,600);
  
 }
