@@ -1,43 +1,40 @@
-int LED = 13;
-int LED2 = 12;
-int LED3 = 11;
+#define LED 10
+#define LED1 11
+#define LED3 12
+#include <SoftwareSerial.h>
+
+// RX = 10
+// TX = 11
+SoftwareSerial mySerial(10,11);
+
 char input;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);                 // set baud rate to 9600
-  pinMode(LED, OUTPUT);               // set the LED pin to output
-  pinMode(LED2, OUTPUT);               // set the LED pin to output
+  mySerial.begin(9600);                 // set baud rate to 9600
   pinMode(LED3, OUTPUT);               // set the LED pin to output
-  Serial.println(">>START<<");        // set output
+  mySerial.println(">>START<<");        // set output
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   // checks if the serial is port is available and data is recieved
-  if(Serial.available()>0)  
+  if(mySerial.available()>0)  
     {  
       // read data into input
-      input= Serial.read();  
+      input= mySerial.read();  
       if(input=='1')  
       {  
         // if data read in is 1 print "ON" and turn on the LED
-        Serial.println("ON");  
-        digitalWrite(LED, HIGH);  
+        mySerial.println("ON");  
+        digitalWrite(LED3, HIGH);  
         delay(2000);
-        digitalWrite(LED, LOW);  
-      }  
-      else if(input=='0')  
-      {  
-        Serial.println("OFF");  
-        digitalWrite(LED2, HIGH);  
-        delay(2000);  
+        digitalWrite(LED3, LOW);  
       }  
       else  
       {  
-        Serial.println("NO INPUT");  
-        Serial.println(input);  
-        digitalWrite(LED3, HIGH);
+        mySerial.println("NO INPUT");  
+        mySerial.println(input);  
       }  
     }
 }
