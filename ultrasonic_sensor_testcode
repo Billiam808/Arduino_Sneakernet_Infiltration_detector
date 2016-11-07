@@ -1,54 +1,42 @@
-#define trigPin 4
-#define echoPin 2
-#define ledPin 13
+#define echoPin1 2                                // echo pin for ultrasonic sensor 1
+#define trigPin1 3                                // trigger pin for ultrasonic sensor 1
+#define echoPin2 4                                // echo pin for ultrasonic sensor 2
+#define trigPin2 5                                // trigger pin for ultrasonic sensor 2
+#define LED 10
+#define LED1 11
+#define LED3 12
+#include <SoftwareSerial.h>
 
-// creating a global array and current index
-int dataArray[10];
-int i = 0;
+// RX = 10
+// TX = 11
+SoftwareSerial mySerial(10,11);
 
+char input;
 
-// the setup function runs once when you press reset or power the board
 void setup() {
-  Serial.begin(9600);               // initialize serial-lib
-  pinMode(trigPin, OUTPUT);         // set trigPin as output pin
-  pinMode(echoPin, INPUT);          // set echoPin as input pin
-  pinMode(ledPin, OUTPUT);          // set ledPin as output pin
+  // put your setup code here, to run once:
+  mySerial.begin(9600);                            // set baud rate to 9600
+  pinMode(LED3, OUTPUT);                           // set the LED pin to output
+  mySerial.println(">>START<<");                   // set output
 }
 
-// the loop function runs over and over again forever
-void loop() {
-  int duration, distance;
-  digitalWrite(trigPin, HIGH);
-  delay(1000);
-  delayMicroseconds(1000);
-  digitalWrite(trigPin, LOW);
-  duration  = pulseIn(echoPin, HIGH);
-  distance = (duration / 2) / 29.1;
-  Serial.println(distance);
-
-  if (distance >= 0){
-    digitalWrite(ledPin, HIGH);
-  }
-  else if (distance < 0){
-    digitalWrite(ledPin, LOW);
-  }
-  
-  // write the data to the array
-  dataArray[i] = distance;
-  if (i < 9)
-    ++i;
-  else if (i == 9){
-    Serial.println("array on initial scan:");
-    Serial.flush();
-    int x;
-    for (x = 0; x < 10; x = x + 1) {
-      Serial.println(dataArray[x]);
-      Serial.flush();
+void loop() {                                                   
+  if(mySerial.available())                        // put your main code here, to run repeatedly:
+    {                                             // checks if the serial is port is available and data is recieved
+      // read data into input
+      input= mySerial.read();  
+      if(input=='1')  
+      {  
+        // if data read in is 1 print "ON" and turn on the LED
+        mySerial.println("ON");  
+        digitalWrite(LED3, HIGH);  
+        delay(2000);
+        digitalWrite(LED3, LOW);  
+      }  
+      else  
+      {  
+        mySerial.println("NO INPUT");  
+        mySerial.println(input);  
+      }  
     }
-    //exit(0);
-    i = 0;
-    Serial.println("\nrepeating the initial scan");
-    Serial.flush();
-  }
-  delay(1000);
 }
