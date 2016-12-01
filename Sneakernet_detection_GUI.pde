@@ -1,51 +1,82 @@
-// constant drawn image. Cant be changed.
-// drawn at the very start
+import processing.serial.*;
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer player;
+AudioInput input;
+
+PImage bg;
+
+Serial myPort;
+PFont f;
+int val = 0;
+boolean intruder = true;
+
 void setup()
 {
-  // size(width, height) -> sets the drawing canzas
-  size(800,1000);
-  drawRadar();
+  frameRate(30);
+  bg = loadImage("test_bg.png");
+  
+  // size of the canvas
+  size(500, 500); 
+  //myPort = new Serial(this, "COM4", 9600);
+  background(155);
+  
+  minim = new Minim(this);
+  player = minim.loadFile("alarm.wav");
+  input = minim.getLineIn();
 }
 
-// constantly draws whats inside the function
-// into the canvas
 void draw()
 {
-
-}
-
-void drawRadar()
-{  
-  // Sets the background color of the canvas
-  background(155);
-  // sets the thickness of the lines
-  // the argument is the number of pixels used
-  stroke(RGB, 185);
-  strokeWeight(5);
-    
-  // arc(a,b,c,d,start,stop);
-  // a: x-coordinate of arc's ellipse
-  // b: y-coordinate of arc's ellipse
-  // c: width of the arc's ellipse
-  // d: height of the arc's ellipse
-  // start: start of the arc specified in radians
-  // stop: end of the arc specified in radians
-  // Radius: 350
-  // Diameter: 700
-  arc(400,600,700,700,0,TWO_PI);
-  drawLines();
+  background(bg);
   
+  //myPort.write('1');
+  f = createFont("monospace", 20, true);
+  fill(255);
+  textFont(f,30);
+  text("Skynet Infiltration Detect-inator", 45, 45);
+  
+  //if(myPort.available() > 0)
+  //{
+  //  val = myPort.read();
+  //  println(val);
+  //}
+  // rect(x-axis, y, w, h)
+  textFont(f,20);
+  
+  if(intruder == true)
+  {
+    // Button 1
+    fill(200);
+    rect(50, 425, 125, 40, 7);
+    fill(0);
+    text("Deathworm", 62, 452);
+    
+    // Button 2
+    fill(200);
+    rect(190, 425, 125, 40, 7);
+    fill(0);
+    text("Fireboard", 212, 452);
+    
+    // Button 3
+    fill(200);
+    rect(330, 425, 125, 40, 7);
+    fill(0);
+    text("Cthulhu", 357, 452);
+  }
 }
 
-void drawLines()
+void mousePressed()
 {
-  // line(x1, y1, x2, y2)
-  // vertical
-  // point 1 :(400,250)
-  // point 2 :(400,950)
-  line(400, 250, 400, 950);
- 
- // horizontal
- line(50,600,750,600);
- 
+  player.play();
+  delay(2600);
+}
+
+void mouseReleased()
+{
+  player.close();
+
+  //since close closes the file, we'll load it again
+  player = minim.loadFile("alarm.wav");
 }
